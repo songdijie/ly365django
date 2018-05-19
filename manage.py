@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+# manage.py.
+
+# bootstrap
+"""
 import os
 import sys
 
