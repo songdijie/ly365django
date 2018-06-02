@@ -5,10 +5,99 @@
 """
 # from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
+from django.http import Http404
+from django.contrib.auth.models import User
+# from django.views.decorators.csrf import csrf_exempt
+# from rest_framework.renderers import JSONRenderer
+# from rest_framework.parsers import JSONParser
+from .serializers import PostSerializer, UserSerializer
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Post as Blog
 from .models import Forum, Topic
+
+
+class UserList(generics.ListAPIView):
+    """
+    UserList.
+
+    #
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    """
+    UserDetail.
+
+    #
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class PostList(APIView):
+    """
+    List all Posts, or create a new post.
+
+    detail:
+    """
+
+    def get(self, request, format=None):
+        """get."""
+        posts = Blog.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        """post."""
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=self.request.user)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST)
+
+
+class PostDetail(APIView):
+    """
+    PostDetail.
+
+    ###
+    """
+
+    def get_object(self, pk):
+        """get_object."""
+        try:
+            return Blog.objects.get(pk=pk)
+        except Blog.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        """get."""
+        blog = self.get_object(pk)
+        serializer = PostSerializer(blog)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        """put."""
+        blog = self.get_object(pk)
+        serializer = PostSerializer(blog, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST)
 
 
 def CustomSerial(indata):

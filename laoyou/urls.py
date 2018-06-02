@@ -3,8 +3,11 @@
 
 # add the router
 """
+from django.conf.urls import url
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from .views import BlogView, ForumView, TopicView
+from .views import PostList, PostDetail, UserList, UserDetail
 
 urlpatterns = [
     path(
@@ -27,3 +30,21 @@ urlpatterns = [
         TopicView.as_view()
     )
 ]
+
+# restful api urls
+urlpatterns.extend([
+    url(
+        r'^api/$', PostList.as_view()
+    ),
+    url(
+        r'^api/(?P<pk>[0-9]+)/$', PostDetail.as_view()
+    ),
+    url(
+        r'^api/user/$', UserList.as_view()
+    ),
+    url(
+        r'^api/user/(?P<pk>[0-9]+)/$', UserDetail.as_view()
+    )
+])
+
+urlpatterns = format_suffix_patterns(urlpatterns)

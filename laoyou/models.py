@@ -7,6 +7,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class UserInfo(models.Model):
+    """
+    UserInfo class implent.
+    property:
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+    avatar = models.FileField(null=True, blank=True)
+
+    def __str__(self):
+        return "phone %s" % self.phone
+
 
 class Forum(models.Model):
     """
@@ -66,8 +79,35 @@ class Post(models.Model):
     cdate = models.DateTimeField(auto_now=True)
     mdate = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='blogs', on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return "%s" % self.name
+
+class City(models.Model):
+    """
+    City class implention
+    property:
+    """
+    name = models.CharField(max_length=100)
+    description = models.CharField(null=True, blank=True, max_length=250)
+    cdate = models.DateTimeField(auto_now=True)
+    member = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return "%s" % self.name
+
+class CityForum(models.Model):
+    """
+    CityForum class implention
+    property:
+    """
+    name = models.CharField(max_length=100)
+    description = models.CharField(null=True, blank=True, max_length=250)
+    cdate = models.DateTimeField(auto_now=True)
+
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s" % self.name
