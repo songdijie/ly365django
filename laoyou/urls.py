@@ -8,6 +8,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import BlogView, ForumView, TopicView
 from .views import PostList, PostDetail, UserList, UserDetail
+from .views import ForumList, ForumDetail, TopicList, TopicDetail
 
 urlpatterns = [
     path(
@@ -34,16 +35,28 @@ urlpatterns = [
 # restful api urls
 urlpatterns.extend([
     url(
-        r'^api/$', PostList.as_view()
-    ),
-    url(
-        r'^api/(?P<pk>[0-9]+)/$', PostDetail.as_view()
-    ),
-    url(
         r'^api/user/$', UserList.as_view()
     ),
     url(
         r'^api/user/(?P<pk>[0-9]+)/$', UserDetail.as_view()
+    ),
+    url(
+        r'^api/forum/$', ForumList.as_view()
+    ),
+    url(
+        r'^api/forum/(<?P<pk>[0-9]+)/$', ForumDetail.as_view()
+    ),
+    url(
+        r'^api/topic/$', TopicList.as_view()
+    ),
+    url(
+        r'^api/topic/(?P<pk>[0-9]+)/$', TopicDetail.as_view()
+    ),
+    url(
+        r'^api/post/$', PostList.as_view()
+    ),
+    url(
+        r'^api/post/(?P<pk>[0-9]+)/$', PostDetail.as_view()
     )
 ])
 

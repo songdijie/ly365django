@@ -34,11 +34,14 @@ class UserSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     """Topic Serializers."""
 
+    forum = serializers.PrimaryKeyRelatedField(
+        many=False, queryset=Forum.objects.all())
+
     class Meta:
         """Meta class."""
 
         model = Topic
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'forum')
 
 
 class ForumSerializer(serializers.ModelSerializer):
