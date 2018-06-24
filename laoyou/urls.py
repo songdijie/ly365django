@@ -8,6 +8,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import BlogView, ForumView, TopicView
 from .views import PostList, PostDetail, UserList, UserDetail
+from .views import UserInfoList, UserInfoDetail
 
 urlpatterns = [
     path(
@@ -44,6 +45,12 @@ urlpatterns.extend([
     ),
     url(
         r'^api/user/(?P<pk>[0-9]+)/$', UserDetail.as_view()
+    ),
+    url(
+        r'^api/userinfo/$', UserInfoList.as_view()
+    ),
+    url(
+        r'^api/userinfo/(?P<pk>[0-9]+)/$', UserInfoDetail.as_view()
     )
 ])
 

@@ -5,7 +5,25 @@
 """
 from rest_framework import serializers
 from .models import Post, Topic, Forum
+from .models import UserInfo
 from django.contrib.auth.models import User
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    """UserInfo Serializers."""
+
+    def update(self, instance, validated_data):
+        """update."""
+        instance.phone = validated_data.get('phone', instance.phone)
+        instance.avatar = validated_data.get('avatar', instance.avatar)
+        instance.save()
+        return instance
+
+    class Meta:
+        """Meta class."""
+
+        model = UserInfo
+        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):

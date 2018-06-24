@@ -7,6 +7,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Coment(models.Model):
+    """
+    Coment.
+    """
+    body = models.CharField(max_length=100)
+    cdate = models.datetime(auto_now=True)
+
+    blog = models.ForeignKey(Post, on_delete=models.CASCADE)
+
 class UserInfo(models.Model):
     """
     UserInfo class implent.
@@ -97,6 +106,16 @@ class City(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+
+
+class CityNews(models.Model):
+    """
+    CityNews
+    """
+    name = models.CharField(max_length=50)
+    body = models.TextField()
+
+    city_forum = models.ForeignKey(City, on_delete=models.CASCADE)
 
 class CityForum(models.Model):
     """

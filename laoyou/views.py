@@ -11,13 +11,56 @@ from django.contrib.auth.models import User
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.parsers import JSONParser
-from .serializers import PostSerializer, UserSerializer
+from .serializers import PostSerializer, UserSerializer, UserInfoSerializer
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Post as Blog
 from .models import Forum, Topic
+from .models import UserInfo
+
+# permission checklist
+from rest_framework import permissions
+
+
+class UserInfoList(generics.ListAPIView):
+    """UserInfo List."""
+
+    queryset = UserInfo.objects.all()
+    serializer_class = UserInfoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+class UserInfoDetail(generics.RetrieveAPIView, generics.UpdateAPIView):
+    """UserInfo Detail."""
+
+    queryset = UserInfo.objects.all()
+    serializer_class = UserInfoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def custom_get_object(self, pk):
+        """get_object."""
+        try:
+            return UserInfo.objects.get(pk=pk)
+        except UserInfo.DoesNotExist:
+            raise Http404
+
+    def update(self, request, *args, **kwargs):
+        """update."""
+        print(args)
+        print(kwargs)
+        print(request.data)
+        pk = kwargs.get('pk', None)
+        userinfo = self.custom_get_object(pk)
+        if request.data.get('avatar', None) is None:
+            request.data['avatar'] = userinfo.get('avatar', None)
+        serializer = UserInfoSerializer(userinfo, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class UserList(generics.ListAPIView):
@@ -29,6 +72,7 @@ class UserList(generics.ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -40,6 +84,7 @@ class UserDetail(generics.RetrieveAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class PostList(APIView):
