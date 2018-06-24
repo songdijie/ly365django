@@ -39,8 +39,7 @@ class PostSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """User Serializers."""
 
-    blogs = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Post.objects.all())
+    blogs = serializers.StringRelatedField(many=True)
 
     class Meta:
         """Meta class."""

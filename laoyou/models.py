@@ -7,14 +7,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Coment(models.Model):
-    """
-    Coment.
-    """
-    body = models.CharField(max_length=100)
-    cdate = models.datetime(auto_now=True)
-
-    blog = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 class UserInfo(models.Model):
     """
@@ -89,10 +81,21 @@ class Post(models.Model):
     mdate = models.DateTimeField(auto_now=True)
 
     user = models.ForeignKey(User, related_name='blogs', on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, default=None)
+    topic = models.ForeignKey(Topic, related_name='topic', on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return "%s" % self.name
+        return "%s,%s" % (self.id, self.name)
+
+
+class Coment(models.Model):
+    """
+    Coment.
+    """
+    body = models.CharField(max_length=100)
+    cdate = models.DateTimeField(auto_now=True)
+
+    blog = models.ForeignKey(Post, on_delete=models.CASCADE)
+
 
 class City(models.Model):
     """

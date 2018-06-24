@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 # from rest_framework.parsers import JSONParser
 
 from .serializers import PostSerializer, UserSerializer, UserInfoSerializer
-from .serializers import PostSerializer, UserSerializer
 from .serializers import ForumSerializer, TopicSerializer
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -95,7 +94,6 @@ class ForumList(generics.ListAPIView):
     #
     """
 
-
     queryset = Forum.objects.all()
     serializer_class = ForumSerializer
 
@@ -103,15 +101,18 @@ class ForumList(generics.ListAPIView):
 class ForumDetail(generics.RetrieveAPIView):
     """
     ForumDetail.
+
     #
     """
 
-
+    queryset = Forum.objects.all()
+    serializer_class = ForumSerializer
 
 
 class TopicList(generics.ListAPIView):
     """
     TopicList.
+
     #
     """
 
@@ -125,7 +126,6 @@ class TopicDetail(generics.RetrieveAPIView):
 
     #
     """
-
 
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
