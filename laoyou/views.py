@@ -11,7 +11,10 @@ from django.contrib.auth.models import User
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.parsers import JSONParser
+
 from .serializers import PostSerializer, UserSerializer, UserInfoSerializer
+from .serializers import PostSerializer, UserSerializer
+from .serializers import ForumSerializer, TopicSerializer
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
@@ -72,7 +75,6 @@ class UserList(generics.ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -84,7 +86,49 @@ class UserDetail(generics.RetrieveAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+class ForumList(generics.ListAPIView):
+    """
+    ForumList.
+
+    #
+    """
+
+
+    queryset = Forum.objects.all()
+    serializer_class = ForumSerializer
+
+
+class ForumDetail(generics.RetrieveAPIView):
+    """
+    ForumDetail.
+    #
+    """
+
+
+
+
+class TopicList(generics.ListAPIView):
+    """
+    TopicList.
+    #
+    """
+
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+
+
+class TopicDetail(generics.RetrieveAPIView):
+    """
+    TopicDetail.
+
+    #
+    """
+
+
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
 
 
 class PostList(APIView):
