@@ -31,7 +31,10 @@ class UserInfoList(generics.ListAPIView):
 
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class UserInfoDetail(generics.RetrieveAPIView, generics.UpdateAPIView):
@@ -39,7 +42,10 @@ class UserInfoDetail(generics.RetrieveAPIView, generics.UpdateAPIView):
 
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
     def custom_get_object(self, pk):
         """get_object."""
@@ -74,6 +80,10 @@ class UserList(generics.ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -85,6 +95,10 @@ class UserDetail(generics.RetrieveAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class ForumList(generics.ListAPIView):
@@ -96,6 +110,10 @@ class ForumList(generics.ListAPIView):
 
     queryset = Forum.objects.all()
     serializer_class = ForumSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class ForumDetail(generics.RetrieveAPIView):
@@ -107,6 +125,10 @@ class ForumDetail(generics.RetrieveAPIView):
 
     queryset = Forum.objects.all()
     serializer_class = ForumSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class TopicList(generics.ListAPIView):
@@ -118,6 +140,10 @@ class TopicList(generics.ListAPIView):
 
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class TopicDetail(generics.RetrieveAPIView):
@@ -129,6 +155,10 @@ class TopicDetail(generics.RetrieveAPIView):
 
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
 
 class PostList(APIView):
@@ -137,6 +167,12 @@ class PostList(APIView):
 
     detail:
     """
+
+    queryset = Blog.objects.all()
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
     def get(self, request, format=None):
         """get."""
@@ -163,6 +199,12 @@ class PostDetail(APIView):
 
     ###
     """
+
+    queryset = Blog.objects.all()
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.DjangoModelPermissions,
+        )
 
     def get_object(self, pk):
         """get_object."""

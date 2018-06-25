@@ -130,3 +130,11 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'G:\\laoyou365\\MEDIA\\'
 MEDIA_URL = 'http://127.0.0.1:8000/media/'
+
+# django rest framework LaoyouConfig
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
