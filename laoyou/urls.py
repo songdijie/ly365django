@@ -37,34 +37,34 @@ urlpatterns = [
 # restful api urls
 urlpatterns.extend([
     url(
-        r'^api/user/$', UserList.as_view()
+        r'api/user/', UserList.as_view()
     ),
     url(
-        r'^api/user/(?P<pk>[0-9]+)/$', UserDetail.as_view()
+        r'api/user/<int:pk>/', UserDetail.as_view()
     ),
     url(
-        r'^api/userinfo/$', UserInfoList.as_view()
+        r'api/userinfo/', UserInfoList.as_view()
     ),
     url(
-        r'^api/userinfo/(?P<pk>[0-9]+)/$', UserInfoDetail.as_view()
+        r'api/userinfo/<int:pk>/', UserInfoDetail.as_view()
     ),
     url(
-        r'^api/forum/$', ForumList.as_view()
+        r'api/forum/', ForumList.as_view()
     ),
     url(
-        r'^api/forum/(<?P<pk>[0-9]+)/$', ForumDetail.as_view()
+        r'api/forum/<int:pk>/', ForumDetail.as_view()
     ),
     url(
-        r'^api/topic/$', TopicList.as_view()
+        r'api/topic/', TopicList.as_view()
     ),
     url(
-        r'^api/topic/(?P<pk>[0-9]+)/$', TopicDetail.as_view()
+        r'api/topic/<int:pk>/', TopicDetail.as_view()
     ),
     url(
-        r'^api/post/$', PostList.as_view()
+        r'api/post/', PostList.as_view()
     ),
     url(
-        r'^api/post/(?P<pk>[0-9]+)/$', PostDetail.as_view()
+        r'api/post/<int:pk>/', PostDetail.as_view()
     )
 ])
 

@@ -9,6 +9,7 @@ from .models import Forum, Topic, Post, UserInfo
 from .models import City, CityNews, CityForum
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .Forms.PostAdmin import *
 
 
 class UserInfoAdmin(admin.StackedInline):
@@ -34,7 +35,7 @@ class LaoyouUserAdmin(BaseUserAdmin):
 
 
 admin.site.register([Coment, ])
-admin.site.register([Forum, Topic, Post, UserInfo])
+admin.site.register([Forum, Topic, UserInfo])
 admin.site.register([City, CityForum, CityNews])
 
 admin.site.unregister(User)
