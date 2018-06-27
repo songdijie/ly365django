@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'laoyou.apps.LaoyouConfig',
     'rest_framework',
-    'ckeditor'
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -143,7 +144,7 @@ REST_FRAMEWORK = {
 # ckeditor settings
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_FILENAME_GENERATOR = 'ly365django.utils.get_filename'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 """
 CKEDITOR_CONFIGS = {

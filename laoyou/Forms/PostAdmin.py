@@ -6,7 +6,8 @@
 
 from django import forms
 from django.contrib import admin
-from ckeditor.widgets import CKEditorWidget
+# from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from laoyou.models import Post
 
@@ -14,7 +15,7 @@ from laoyou.models import Post
 class PostAdminForm(forms.ModelForm):
     """PostAdminForm."""
 
-    body = forms.CharField(widget=CKEditorWidget())
+    body = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
         """Meta."""
