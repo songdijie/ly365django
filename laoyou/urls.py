@@ -10,6 +10,7 @@ from .views import BlogView, ForumView, TopicView
 from .views import PostList, PostDetail, UserList, UserDetail
 from .views import UserInfoList, UserInfoDetail
 from .views import ForumList, ForumDetail, TopicList, TopicDetail
+from .Views.userview import changepasswd
 
 
 urlpatterns = [
@@ -43,10 +44,13 @@ urlpatterns.extend([
         r'api/user/<int:pk>/', UserDetail.as_view()
     ),
     url(
-        r'api/userinfo/', UserInfoList.as_view()
+        r'api/userinfo/$', UserInfoList.as_view()
     ),
     url(
         r'api/userinfo/<int:pk>/', UserInfoDetail.as_view()
+    ),
+    url(
+        r'api/userinfo/changepasswd/', changepasswd
     ),
     url(
         r'api/forum/', ForumList.as_view()
