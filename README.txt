@@ -6,6 +6,7 @@ pip install Pillow
 pip install Django
 pip install pytz
 pip install django-ckeditor
+pip install django-cors-headers
 
 Add 'rest_framework' to your INSTALLED_APPS setting.
 

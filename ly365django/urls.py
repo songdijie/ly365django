@@ -18,6 +18,9 @@ from django.conf.urls import url
 from django.urls import path, include
 from laoyou import urls as laoyou_urls
 from .views import home
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', home, name='home'),
@@ -26,3 +29,15 @@ urlpatterns = [
     url(r'api-auth/', include('rest_framework.urls')),
     url(r'ckeditor/', include('ckeditor_uploader.urls'))
 ]
+
+# server the static files
+urlpatterns += static(
+    settings.STATIC_URL,
+    document_root=settings.STATIC_ROOT
+)
+
+# server the media files
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

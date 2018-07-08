@@ -133,7 +133,7 @@ STATIC_ROOT = BASE_DIR + '/statics/'
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'G:\\laoyou365\\MEDIA\\'
-MEDIA_URL = 'http://127.0.0.1:8000/media/'
+MEDIA_URL = '/media/'
 
 # django rest framework LaoyouConfig
 REST_FRAMEWORK = {
