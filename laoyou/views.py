@@ -12,14 +12,14 @@ from django.contrib.auth.models import User
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.parsers import JSONParser
 
-from .serializers import PostSerializer, UserSerializer, UserInfoSerializer
-from .serializers import ForumSerializer, TopicSerializer
+from .serializers import BlogSerializer, UserSerializer, UserInfoSerializer
+from .serializers import CommunitySerializer, TopicSerializer
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Post as Blog
-from .models import Forum, Topic
+from .models import Blog
+from .models import Community, Topic
 from .models import UserInfo
 
 # permission checklist
@@ -101,30 +101,30 @@ class UserDetail(generics.RetrieveAPIView):
         )
 
 
-class ForumList(generics.ListAPIView):
+class CommunityList(generics.ListAPIView):
     """
     ForumList.
 
     #
     """
 
-    queryset = Forum.objects.all()
-    serializer_class = ForumSerializer
+    queryset = Community.objects.all()
+    serializer_class = CommunitySerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         permissions.DjangoModelPermissions,
         )
 
 
-class ForumDetail(generics.RetrieveAPIView):
+class CommunityDetail(generics.RetrieveAPIView):
     """
-    ForumDetail.
+    CommunityDetail.
 
     #
     """
 
-    queryset = Forum.objects.all()
-    serializer_class = ForumSerializer
+    queryset = Community.objects.all()
+    serializer_class = CommunitySerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         permissions.DjangoModelPermissions,
@@ -161,7 +161,7 @@ class TopicDetail(generics.RetrieveAPIView):
         )
 
 
-class PostList(APIView):
+class BlogList(APIView):
     """
     List all Posts, or create a new post.
 
@@ -176,13 +176,13 @@ class PostList(APIView):
 
     def get(self, request, format=None):
         """get."""
-        posts = Blog.objects.all()
-        serializer = PostSerializer(posts, many=True)
+        blogs = Blog.objects.all()
+        serializer = BlogSerializer(blogs, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
         """post."""
-        serializer = PostSerializer(data=request.data)
+        serializer = BlogSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=self.request.user)
             return Response(
@@ -193,9 +193,9 @@ class PostList(APIView):
             status=status.HTTP_400_BAD_REQUEST)
 
 
-class PostDetail(APIView):
+class BlogDetail(APIView):
     """
-    PostDetail.
+    BlogDetail.
 
     ###
     """
@@ -216,13 +216,13 @@ class PostDetail(APIView):
     def get(self, request, pk, format=None):
         """get."""
         blog = self.get_object(pk)
-        serializer = PostSerializer(blog)
+        serializer = BlogSerializer(blog)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         """put."""
         blog = self.get_object(pk)
-        serializer = PostSerializer(blog, data=request.data)
+        serializer = BlogSerializer(blog, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -234,7 +234,7 @@ class PostDetail(APIView):
 def CustomSerial(indata):
     """CustomSerial."""
     outdata = dict()
-    if isinstance(indata, Forum):
+    if isinstance(indata, Community):
         outdata.update(id=indata.id)
         outdata.update(name=indata.name)
         outdata.update(description=indata.description)
@@ -263,9 +263,9 @@ def CustomSerial(indata):
     return outdata
 
 
-class ForumView(View):
+class CommunityView(View):
     """
-    ForumViewself.
+    CommunityViewself.
 
     methods:
     """
@@ -275,10 +275,10 @@ class ForumView(View):
         fId = kwargs.get('fId', None)
         if fId is not None:
             fId = int(fId)
-            f = Forum.objects.filter(id=fId)[0]
+            f = Community.objects.filter(id=fId)[0]
             return JsonResponse(CustomSerial(f))
         else:
-            f = Forum.objects.all()
+            f = Community.objects.all()
             ret = dict()
             n = 0
             for m in f:

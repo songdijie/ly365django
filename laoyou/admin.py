@@ -4,9 +4,9 @@
 # add the used models to the admin
 """
 from django.contrib import admin
-from .models import Coment
-from .models import Forum, Topic, Post, UserInfo
-from .models import City, CityNews, CityForum
+from .Models.community import Community, Topic, Comment
+from .Models.user import UserInfo
+from .Models.city import City, CityCommunity, CityCommunityNews
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .Forms.PostAdmin import *
@@ -21,7 +21,7 @@ class UserInfoAdmin(admin.StackedInline):
 
     model = UserInfo
     can_delete = False
-    verbose_name_plural = 'user info'
+    verbose_name_plural = '用户信息'
 
 
 class LaoyouUserAdmin(BaseUserAdmin):
@@ -34,9 +34,9 @@ class LaoyouUserAdmin(BaseUserAdmin):
     inlines = (UserInfoAdmin, )
 
 
-admin.site.register([Coment, ])
-admin.site.register([Forum, Topic, UserInfo])
-admin.site.register([City, CityForum, CityNews])
+admin.site.register([Comment, ])
+admin.site.register([Community, Topic, UserInfo])
+admin.site.register([City, CityCommunity, CityCommunityNews])
 
 admin.site.unregister(User)
 admin.site.register(User, LaoyouUserAdmin)

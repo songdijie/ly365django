@@ -4,8 +4,9 @@
 # djaongrestframework
 """
 from rest_framework import serializers
-from .models import Post, Topic, Forum
+from .models import Community, Topic, Blog, Comment
 from .models import UserInfo
+from .models import City, CityCommunity, CityCommunityNews
 from django.contrib.auth.models import User
 
 
@@ -26,13 +27,13 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PostSerializer(serializers.ModelSerializer):
+class BlogSerializer(serializers.ModelSerializer):
     """Post Serializers."""
 
     class Meta:
         """Meta class."""
 
-        model = Post
+        model = Blog
         fields = ('id', 'name', 'description', 'body', 'topic')
 
 
@@ -51,21 +52,21 @@ class UserSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     """Topic Serializers."""
 
-    forum = serializers.PrimaryKeyRelatedField(
-        many=False, queryset=Forum.objects.all())
+    community = serializers.PrimaryKeyRelatedField(
+        many=False, queryset=Blog.objects.all())
 
     class Meta:
         """Meta class."""
 
         model = Topic
-        fields = ('id', 'name', 'description', 'forum')
+        fields = ('id', 'name', 'description', 'community')
 
 
-class ForumSerializer(serializers.ModelSerializer):
-    """Forum Serializers."""
+class CommunitySerializer(serializers.ModelSerializer):
+    """Community Serializers."""
 
     class Meta:
         """Meta."""
 
-        model = Forum
+        model = Community
         fields = ('id', 'name', 'description')

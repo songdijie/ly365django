@@ -9,10 +9,10 @@ from django.contrib import admin
 # from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from laoyou.models import Post
+from laoyou.models import Blog
 
 
-class PostAdminForm(forms.ModelForm):
+class BlogAdminForm(forms.ModelForm):
     """PostAdminForm."""
 
     body = forms.CharField(widget=CKEditorUploadingWidget())
@@ -20,14 +20,14 @@ class PostAdminForm(forms.ModelForm):
     class Meta:
         """Meta."""
 
-        model = Post
-        fields = ['name', 'description', 'body']
+        model = Blog
+        fields = ['name', 'description', 'body', 'topic', 'user']
 
 
-class PostAdmin(admin.ModelAdmin):
+class BlogAdmin(admin.ModelAdmin):
     """PostAdmin."""
 
-    form = PostAdminForm
+    form = BlogAdminForm
 
 
-admin.site.register(Post, PostAdmin)
+admin.site.register(Blog, BlogAdmin)

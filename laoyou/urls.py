@@ -6,10 +6,10 @@
 from django.conf.urls import url
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import BlogView, ForumView, TopicView
-from .views import PostList, PostDetail, UserList, UserDetail
+from .views import BlogView, CommunityView, TopicView
+from .views import BlogList, BlogDetail, UserList, UserDetail
 from .views import UserInfoList, UserInfoDetail
-from .views import ForumList, ForumDetail, TopicList, TopicDetail
+from .views import CommunityList, CommunityDetail, TopicList, TopicDetail
 from .Views.userview import changepasswd
 
 
@@ -19,11 +19,11 @@ urlpatterns = [
         BlogView.as_view()),
     path(
         'forum/',
-        ForumView.as_view()
+        CommunityView.as_view()
     ),
     path(
         'forum/<fId>/',
-        ForumView.as_view()
+        CommunityView.as_view()
     ),
     path(
         'topic/',
@@ -37,38 +37,38 @@ urlpatterns = [
 
 # restful api urls
 urlpatterns.extend([
-    url(
+    path(
         r'api/user/', UserList.as_view()
     ),
-    url(
+    path(
         r'api/user/<int:pk>/', UserDetail.as_view()
     ),
-    url(
+    path(
         r'api/userinfo/$', UserInfoList.as_view()
     ),
-    url(
+    path(
         r'api/userinfo/<int:pk>/', UserInfoDetail.as_view()
     ),
-    url(
+    path(
         r'api/userinfo/changepasswd/', changepasswd
     ),
-    url(
-        r'api/forum/', ForumList.as_view()
+    path(
+        r'api/community/', CommunityList.as_view()
     ),
-    url(
-        r'api/forum/<int:pk>/', ForumDetail.as_view()
+    path(
+        r'api/community/<int:pk>/', CommunityDetail.as_view()
     ),
-    url(
+    path(
         r'api/topic/', TopicList.as_view()
     ),
-    url(
+    path(
         r'api/topic/<int:pk>/', TopicDetail.as_view()
     ),
-    url(
-        r'api/post/', PostList.as_view()
+    path(
+        r'api/blog/', BlogList.as_view()
     ),
     url(
-        r'api/post/<int:pk>/', PostDetail.as_view()
+        r'api/blog/<int:pk>/', BlogDetail.as_view()
     )
 ])
 
