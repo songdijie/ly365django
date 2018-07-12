@@ -22,6 +22,8 @@ from .models import Blog
 from .models import Community, Topic
 from .models import UserInfo
 
+from .Views.userview import *
+
 # permission checklist
 from rest_framework import permissions
 

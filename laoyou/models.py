@@ -8,3 +8,4 @@
 from .Models.community import Community, Topic, Blog, Comment
 from .Models.user import UserInfo
 from .Models.city import City, CityCommunity, CityCommunityNews
+from .Models.city import CityCommunityNewsComment

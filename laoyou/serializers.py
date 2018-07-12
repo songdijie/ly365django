@@ -6,7 +6,8 @@
 from rest_framework import serializers
 from .models import Community, Topic, Blog, Comment
 from .models import UserInfo
-from .models import City, CityCommunity, CityCommunityNews
+from .models import (
+    City, CityCommunity, CityCommunityNews, CityCommunityNewsComment)
 from django.contrib.auth.models import User
 
 
@@ -70,3 +71,49 @@ class CommunitySerializer(serializers.ModelSerializer):
 
         model = Community
         fields = ('id', 'name', 'description')
+
+
+class CitySerializer(serializers.ModelSerializer):
+    """City Serializers."""
+
+    communitys = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        """Meta."""
+
+        model = City
+        fields = ('id', 'name', 'description', 'communitys')
+
+
+class CityCommunitySerializer(serializers.ModelSerializer):
+    """CityCommunity Serializers."""
+
+    news = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        """Meta."""
+
+        model = CityCommunity
+        fields = ('id', 'name', 'description', 'news')
+
+
+class CityCommunityNewsSerializer(serializers.ModelSerializer):
+    """CityCommunityNews Serializers."""
+
+    comments = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        """Meta."""
+
+        model = CityCommunityNews
+        fields = ('id', 'name', 'body', 'comments')
+
+
+class CityCommunityNewsCommentSerializer(serializers.ModelSerializer):
+    """CityCommunityNewsComment Serializers."""
+
+    class Meta:
+        """Meta."""
+
+        model = CityCommunityNewsComment
+        fields = ('id', 'comment')

@@ -35,11 +35,11 @@ class CityCommunity(models.Model):
     description = models.CharField(null=True, blank=True, max_length=250)
     cdate = models.DateTimeField(auto_now=True)
 
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name='communitys', on_delete=models.CASCADE)
 
     def __str__(self):
         """__str__."""
-        return "%s" % self.name
+        return "%d,%s" % (self.id, self.name)
 
 class CityCommunityNews(models.Model):
     """
@@ -51,4 +51,26 @@ class CityCommunityNews(models.Model):
     name = models.CharField(max_length=50)
     body = models.TextField()
 
-    city_community = models.ForeignKey(CityCommunity, on_delete=models.CASCADE)
+    city_community = models.ForeignKey(CityCommunity, related_name='news', on_delete=models.CASCADE)
+
+    def __str__(self):
+        """__str__."""
+        return "%s" % self.name
+
+
+class CityCommunityNewsComment(models.Model):
+    """
+    CityCommunityNewsComment.
+
+    property
+    """
+
+    news = models.ForeignKey(
+        CityCommunityNews, related_name='comments', on_delete=models.CASCADE)
+    comment = models.CharField(max_length=250)
+    cdate = models.DateTimeField(auto_now=True)
+    vote = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        """__str__."""
+        return "%s" % self.comment

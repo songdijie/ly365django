@@ -11,6 +11,14 @@ from .views import BlogList, BlogDetail, UserList, UserDetail
 from .views import UserInfoList, UserInfoDetail
 from .views import CommunityList, CommunityDetail, TopicList, TopicDetail
 from .Views.userview import changepasswd
+from .Views.cityview import CityList, CityDetail
+from .Views.cityview import CityCommunityList, CityCommunityDetail
+from .Views.cityview import (
+    CityCommunityNewsList,
+    CityCommunityNewsDetail,
+    CityCommunityNewsCommentList,
+    CityCommunityNewsCommentDetail
+)
 
 
 urlpatterns = [
@@ -44,7 +52,7 @@ urlpatterns.extend([
         r'api/user/<int:pk>/', UserDetail.as_view()
     ),
     path(
-        r'api/userinfo/$', UserInfoList.as_view()
+        r'api/userinfo/', UserInfoList.as_view()
     ),
     path(
         r'api/userinfo/<int:pk>/', UserInfoDetail.as_view()
@@ -67,8 +75,34 @@ urlpatterns.extend([
     path(
         r'api/blog/', BlogList.as_view()
     ),
-    url(
+    path(
         r'api/blog/<int:pk>/', BlogDetail.as_view()
+    ),
+    path(
+        r'api/city/', CityList.as_view()
+    ),
+    path(
+        r'api/city/<int:pk>/', CityDetail.as_view()
+    ),
+    path(
+        r'api/citycommunity/', CityCommunityList.as_view()
+    ),
+    path(
+        r'api/citycommunity/<int:pk>/', CityCommunityDetail.as_view()
+    ),
+    path(
+        r'api/citycommunitynews/', CityCommunityNewsList.as_view()
+    ),
+    path(
+        r'api/citycommunitynews/<int:pk>/', CityCommunityNewsDetail.as_view()
+    ),
+    path(
+        r'api/citycommunitynewscomment/',
+        CityCommunityNewsCommentList.as_view()
+    ),
+    path(
+        r'api/citycommunitynewscomment/<int:pk>/',
+        CityCommunityNewsCommentDetail.as_view()
     )
 ])
 
