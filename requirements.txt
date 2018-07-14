@@ -1,0 +1,8 @@
+Django
+djangorestframework
+markdown
+django-filter
+Pillow
+pytz
+django-ckeditor
+django-cors-headers
