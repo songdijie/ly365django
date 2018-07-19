@@ -67,6 +67,8 @@ class Blog(models.Model):
     mdate = models.DateTimeField(auto_now=True)
     viewcount = models.PositiveIntegerField(default=0)
 
+    website = models.BooleanField(default=False) # whether it is the website link
+
     user = models.ForeignKey(User, related_name='blogs', on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, default=None)
 
